@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const JobListing = ({ job }) => {
+const JobListing = ({ job, idx }) => {
   const [showFullDescription, setShowFullDescription] = useState(false);
 
   let description = job.description;
@@ -11,7 +12,7 @@ const JobListing = ({ job }) => {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-md relative">
+    <div key={idx} className="bg-white rounded-xl shadow-md relative">
       <div className="p-4">
         <div className="mb-6">
           <div className="text-gray-600 my-2">{job.type}</div>
@@ -37,7 +38,7 @@ const JobListing = ({ job }) => {
             {job.location}
           </div>
           <Link
-            to={`/job/${job.id}`}
+            to={`/jobs/${job.id}`}
             className="h-[36px] bg-indigo-500 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-center text-sm"
           >
             Read More
@@ -46,6 +47,11 @@ const JobListing = ({ job }) => {
       </div>
     </div>
   );
+};
+
+JobListing.propTypes = {
+  job: PropTypes.object,
+  idx: PropTypes.number,
 };
 
 export default JobListing;
